@@ -1,0 +1,54 @@
+﻿
+@{
+    ViewBag.Title = "Jobs";
+    var jobs = (List <JobConnector.Models.Job>) ViewData["jobs"];
+}
+
+<div class="container">
+
+    <h2 class="w-100 text-center">Jobs You Have Uploaded</h2>
+    @if (jobs == null || jobs.Count == 0)
+    {
+        <p class="text-danger">You have not uploaded any jobs!!</p>
+    }
+    else
+    {
+        <table class="table table-dark table-striped">
+            <thead style="color: #0dcaf0;">
+                <tr>
+                    <th>Company Logo</th>
+                    <th>Company Name</th>
+                    <th>Job Title</th>
+                    <th>Job Type</th>
+                    <th>Job Description</th>
+                    <th>Job Requirements</th>
+                    <th>Added</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var job in jobs)
+                {
+                    <tr class="p-1 border-bottom">
+                        <td class="align-content-center">
+                            <img src="@job.CompanyLogo"
+                                 alt="@job.CompanyName"
+                                 style="width: 5em;border-radius: .5em;" />
+                        </td>
+
+                        <td class="align-content-center">@job.CompanyName</td>
+                        <td class="align-content-center">@job.Title</td>
+                        <td class="align-content-center">@job.JobType</td>
+                        <td class="align-content-center">@job.Description</td>
+                        <td class="align-content-center">@job.Experience</td>
+                        <td class="align-content-center">@job.Added.ToString().Substring(0, 10)</td>
+                        <td>
+                            <a href="./Job?id=@job.Id" class="btn btn-info">VIEW</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+
+</div>

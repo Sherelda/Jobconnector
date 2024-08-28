@@ -1,0 +1,67 @@
+﻿
+@{
+    ViewBag.Title = "Terms";
+    var user = (JobConnector.Models.User)Session["user"];
+}
+<div class="p-4 d-flex flex-column align-items-center">
+    <div class="row p-2">
+        <p class="text-success">@ViewData["success_message"]</p>
+        <p class="text-danger">@ViewData["error_message"]</p>
+    </div>
+
+    <h1>Terms and Conditions</h1>
+    <p class="col-10">
+        By using our services, you agree to comply with the following terns and conditions.
+        Please read them carefully.
+    </p>
+
+    <ol class="col-10 p-2">
+        <li>
+            Information Sharing: By submitting your CV and personal information to our platform, you consent to us sharing this data with potential employers. This includes, but is not limited to, your name, contact information, work experience, education, and any other details provided in your CV and profile.
+        </li>
+        <li>
+            Data Privacy: We are committed to protecting your personal information and ensuring your data is used responsibly. Employers accessing your information are required to use it solely for recruitment purposes.
+        </li>
+        <li>
+            User Responsibilities: You are responsible for ensuring that the information you provide is accurate and up-to-date. Misrepresentation or providing false information can result in the suspension or termination of your account.
+        </li>
+        <li>
+            Employer Use: Employers who access your information are also bound by our terms and are required to handle your data with confidentiality and respect.
+        </li>
+        <li>
+            Consent: By using our platform and uploading your CV, you explicitly consent to the sharing of your personal information with potential employers as described above.
+        </li>
+        <li>
+            Changes to Terms: We may update these terms and conditions periodically. Any changes will be communicated to you via email or through our platform.
+        </li>
+    </ol>
+
+    <p class="my-2">
+        By continuing to use our services, you acknowledge that you have read, understood, and agreed to these terms and conditions.
+    </p>
+    @if (user != null)
+    {
+        if (user.Consent != "accepted")
+        {
+            <form class="row d-flex justify-content-around w-100" method="post">
+                <div class="col-6 px-4 d-flex align-items-center">
+                    <input type="radio" class="mx-2" name="permission" required /> <label for="permission">I accept Terms & Conditions</label>
+                </div>
+                <div class="col-3">
+                    <button type="submit" class="btn btn-primary">Agree</button>
+                </div>
+            </form>
+        }
+        else
+        {
+            <div class="col-6">
+                <input type="radio" class="ms-4" name="permission" checked disabled /> <label for="permission">Terms & Conditions Accepted</label>
+            </div>
+        }
+
+    }
+
+
+
+</div>  
+

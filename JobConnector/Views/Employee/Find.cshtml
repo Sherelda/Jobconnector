@@ -1,0 +1,249 @@
+﻿
+@{
+    ViewBag.Title = "Find";
+    var user = (JobConnector.Models.User)Session["user"];
+    var jobs = (List<JobConnector.Models.Job>)ViewData["jobs"];
+}
+<div class="w-100 m-0 p-2 d-flex flex-wrap justify-content-between bg-white">
+    <div class="col-lg-3 col-md-12 col-sm-12">
+        <h2>Filter Search</h2>
+
+        <div class="row">
+
+            @*<div class="col-lg-12 col-md-4 col-sm-4">
+                <h5 class="my-1">Job Location</h5>
+                <input class="form-control" type="text" />
+            </div>*@
+
+            <div class="col-lg-12 col-md-4 col-sm-4">
+                <h5 class="my-1">Job Type</h5>
+                <div class="p-1">
+                    <div class="my-1">
+                        <input type="radio" name="job_type_filter" value="fulltime" />
+                        <label>Full Time</label>
+                    </div>
+
+                    <div class="my-1">
+                        <input type="radio" name="job_type_filter" value="parttime" />
+                        <label>Part Time</label>
+                    </div>
+
+                    <div class="my-1">
+                        <input type="radio" name="job_type_filter" value="remote" />
+                        <label>Remote</label>
+                    </div>
+
+                    <div class="my-1">
+                        <input type="radio" name="job_type_filter" value="freelance" />
+                        <label>Freelance</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-12 col-md-4 col-sm-4">
+                <h5 class="my-1">Posted Within</h5>
+                <div class="p-1">
+                    <div class="my-1">
+                        <input type="radio" name="posted" value="1" />
+                        <label>Today</label>
+                    </div>
+
+                    <div class="my-1">
+                        <input type="radio" name="posted" value="2" />
+                        <label>Last 2 days</label>
+                    </div>
+
+                    <div class="my-1">
+                        <input type="radio" name="posted" value="3" />
+                        <label>Last 3 days</label>
+                    </div>
+
+                    <div class="my-1">
+                        <input type="radio" name="posted" value="5" />
+                        <label>Last 5 days</label>
+                    </div>
+
+                    <div class="my-1">
+                        <input type="radio" name="posted" value="10" />
+                        <label>Last 10 days</label>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+    <div class="col-lg-8 col-md-12 col-sm-12">
+        <p class="text-danger my-2">@ViewData["error_message"]</p>
+        @if (jobs == null || jobs.Count == 0)
+        {
+            <div class="row p-5 d-flex align-items-center justify-content-center fs-4">
+                <p class="text-capitalize text-warning">
+                    No jobs have been found!!!
+                </p>
+            </div>
+        }
+        else if (ViewData["record"] == null)
+        {
+            <div class="row p-5 d-flex align-items-center justify-content-around">
+                <p class="text-capitalize text-warning">
+                    You have not purchased a search filter!!!
+                </p>
+                <button class="btn btn-primary col-4 my-2 mx-auto" id="buy">Purchase Search/Filter</button>
+            </div>
+        }
+        else
+        {
+            <h4>Total <span id="job_count" class="text-secondary"></span> jobs found</h4>
+            <div class="main jobs" id="jobs">
+
+                @foreach (JobConnector.Models.Job job in jobs)
+                {
+                    <div class="d-flex row border-bottom py-2 job">
+                        <div class="col-lg-4 col-md-4 col-sm-4">
+                            <img src="@job.CompanyLogo" alt="@job.CompanyName"
+                                 style="width: 12em; height: 12em; border-radius: 50%; border: 2px solid;" />
+                        </div>
+
+                        <div class="col-lg-8 col-sm-8">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <h3 class="job_title">@job.Title</h3>
+                                <span class="salary">@job.Salary/month</span>
+                                <span class="job_type">@job.JobType</span>
+                            </div>
+
+                            <div class="d-flex align-items-center justify-content-between">
+                                <span class="company_name">@job.CompanyName</span>
+                                <span class="company_address">@job.CompanyAddress</span>
+                                <span class="date_added">@job.Added</span>
+                            </div>
+
+                            <div class="row d-flex align-items-center justify-content-center p-3">
+                                <a href="./Job?id=@job.Id" class="btn btn-info">VIEW</a>
+                            </div>
+                        </div>
+                    </div>
+
+                }
+
+
+            </div>
+        }
+
+    </div>
+    <script>
+        onload = () => {
+            const btn = document.getElementById("buy");
+
+            btn?.addEventListener("click", e => {
+                e.preventDefault();
+                const url = "https://buy.stripe.com/test_00g7tC99L9Yq208cMO";
+                window.open(url, "_blank");
+            });
+            var main_container = document.querySelector("#jobs");
+            const jobs = document.querySelectorAll(".job");
+            var updated = [];
+            var job_type = "*";
+            var days = 100;
+
+            const updateJobs = () => {
+                main_container.innerHTML = null;
+                let i = 0;
+                jobs.forEach(job => {
+                    let jt = job.getElementsByClassName("job_type")[0].innerHTML;
+                    let da = job.getElementsByClassName("date_added")[0].innerHTML.split(" ")[0];
+                    if (job_type === "*") {
+                        if (days >= Number(da)) {
+                            main_container.appendChild(job);
+                            i++;
+                        }
+                    }
+                    else if (jt === job_type && days >= Number(da)) {
+
+                        main_container.appendChild(job);
+                        i++;
+                    }
+                })
+                document.getElementById("job_count").innerHTML = i;
+            }
+
+
+
+            
+            updated = jobs;
+            jobs.forEach(job => {
+                // calculate posted date duration
+                var dt = new Date();
+                const da = job.getElementsByClassName("date_added")[0].innerHTML;
+                var dt2 = new Date(da);
+                let duration = (dt - dt2) / 86400000;
+                job.getElementsByClassName("date_added")[0].innerHTML = Math.floor(duration) + " days ago";
+            })
+                      
+
+            const jt = document.querySelectorAll('[name="job_type_filter"]');
+            jt.forEach((j, i) => {
+                j.addEventListener("click", e => {
+                    console.log("clicked");
+                    job_type = e.target.value;
+                    //updated = [];
+                    //let i = 0;
+
+                    /*jobs.forEach(job => {
+                        let job_type = job.getElementsByClassName("job_type")[0].innerHTML;
+
+                        if (job_type !== e.target.value) {
+                            //job.classList.remove("d-flex");
+                            //job.classList.add("d-none");
+                            
+                        } else {
+                            //job.classList.remove("d-none");
+                            //job.classList.add("d-flex");
+                            updated.push(job);
+                            i++;
+                        }
+                        
+                    })*/
+                    updateJobs();
+                    //document.getElementById("job_count").innerHTML = i;
+                })
+            })
+
+            const posted_filter = document.querySelectorAll('[name="posted"]');
+            posted_filter.forEach((j, i) => {
+                j.addEventListener("click", e => {
+                    days = Number(e.target.value.replace(" ", ""));
+                    updateJobs();
+                    /*let updated2 = [];
+                    let i = 0;
+                    let j_t = document.querySelector('[name="job_type_filter"]');
+                    console.log("val=", e.target.value, ". job_type=", j_t.value);
+                    updated.forEach(job => {
+                        let da = job.getElementsByClassName("date_added")[0].innerHTML.split(" ")[0];
+                        
+                        if (Number(e.target.value.replace(" ", "")) >= Number(da)) {
+                            //job.classList.remove("d-flex");
+                            //job.classList.add("d-none");
+                            updated2.push(job);
+                            console.log(e.target.value, ">=", da)
+                            i++;
+                        } else {
+                            //job.classList.remove("d-none");
+                            //job.classList.add("d-flex");
+                            console.log(e.target.value, "<", da)
+                        }
+                        
+                    })
+                    //updated = updated2;
+                    //updateJobs();
+                    document.getElementById("job_count").innerHTML = i;*/
+                })
+            })
+            
+
+        }
+    </script>
+</div>
+

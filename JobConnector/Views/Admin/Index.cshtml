@@ -1,0 +1,43 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="container py-5 bg-white mx-auto" style="min-height: 500px;">
+
+    <h2 class="w-100 text-xl-center text-info">DASHBOARD</h2>
+    <h3 class="text-center mb-4">Welcome To Job Connector Admin Dashboard</h3>
+
+    <div class="row d-flex justify-content-around">
+
+        <div class="col-12">
+            <p class="my-1 text-danger">@ViewData["error_message"]</p>
+        </div>
+
+        <div class="col-2 d-flex flex-column align-items-center p-3 bg-info rounded-2">
+            <span class="my-1">Total Active Users</span>
+            <span class="text-warning" style="font-size: 2em;">@ViewData["users"]</span>
+        </div>
+
+        <div class="col-2 d-flex flex-column align-items-center p-3 bg-info rounded-2">
+            <span class="my-1">Total Jobs</span>
+            <span class="text-warning" style="font-size: 2em;">@ViewData["jobs"]</span>
+        </div>
+
+        <div class="col-2 d-flex flex-column align-items-center p-3 bg-info rounded-2">
+            <span class="my-1">Generated CVs</span>
+            <span class="text-warning" style="font-size: 2em;">@ViewData["cvs"]</span>
+        </div>
+
+        <div class="col-2 d-flex flex-column align-items-center p-3 bg-info rounded-2">
+            <span class="my-1">Contacted Users</span>
+            <span class="text-warning" style="font-size: 2em;">@ViewData["contacted"]</span>
+        </div>
+
+        <div class="col-2 d-flex flex-column align-items-center p-3 bg-info rounded-2">
+            <span class="my-1">Patners' CVs</span>
+            <span class="text-warning" style="font-size: 2em;">@ViewData["partnercvs"]</span>
+        </div>
+    </div>
+</div>
+

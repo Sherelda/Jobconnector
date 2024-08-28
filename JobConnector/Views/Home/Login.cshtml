@@ -1,0 +1,41 @@
+﻿
+@{
+    ViewBag.Title = "Login";
+}
+
+<div class="w-100 p-3 d-flex flex-column align-items-center bg-info">
+    <h1>LOGIN</h1>
+    <h2>Login To Your Account</h2>
+
+    <form class="w-75 bg-white p-3 d-flex flex-column align-items-center" method="post">
+        <p class="text-danger">@ViewData["error_message"]</p>
+        <p class="text-success">@ViewData["success_message"]</p>
+
+        <div class="col-md-8 col-sm-10 col-lg-6 d-flex align-items-center flex-column mt-2">
+            <label for="username">Email</label>
+            <input type="email" name="email" id="email" class="form-control" required />
+        </div>
+
+        <div class="col-md-8 col-sm-10 col-lg-6 d-flex align-items-center flex-column mt-2">
+            <label>Password</label>
+            <input type="password" name="password" class="form-control" required />
+        </div>
+
+        <div class="col-md-8 col-sm-10 col-lg-6 d-flex align-items-center flex-column mt-2">
+            <label>User Type</label>
+            <select name="user_type" class="form-select">
+                <option value="employee">Employee</option>
+                <option value="employer">Employer</option>
+                <option value="partner">Partner</option>
+                <option value="admin">Admin</option>
+            </select>
+        </div>
+
+        <div class="w-100 py-2 px-4 mt-2 d-flex align-items-center justify-content-around">
+            <button type="reset" class="btn btn-warning">CLEAR</button>
+            <button type="submit" class="btn btn-primary">LOGIN</button>
+        </div>
+
+    </form>
+</div>
+

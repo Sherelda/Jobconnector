@@ -1,0 +1,61 @@
+﻿
+@{
+    ViewBag.Title = "My Profile";
+    var user = (JobConnector.Models.User)Session["user"];
+}
+<div class="container p-4 bg-white">
+    <div class="row p-2">
+        <p class="text-success">@ViewData["success_message"]</p>
+        <p class="text-danger">@ViewData["error_message"]</p>
+    </div>
+
+    <div class="row p-3">
+
+
+        <div class="col-lg-4 col-md-6 col-sm-12">
+            <div class="row d-flex align-items-center justify-content-center">
+                <img src="../user.png" alt="" style="width: 12em; height: 12em; border-radius: 50%;" />
+            </div>
+            <div class="d-flex flex-column align-items-center">
+                <h4 class="mt-2">@user.Name</h4>
+                <h4>@user.UserName</h4>
+                <h4>@user.Country</h4>
+            </div>
+        </div>
+
+        <form class="col-lg-6 col-md-6 col-sm-12"
+              method="post" enctype="multipart/form-data">
+            <div class="col-lg-6 col-md-8 col-sm-8 mt-1">
+                <label for="fullname">Full Name</label>
+                <input type="text" name="fullname" value="@user.Name" class="form-control" required />
+            </div>
+
+            <div class="col-lg-6 col-md-8 col-sm-8 mt-1">
+                <label for="email">Email</label>
+                <input type="text" name="email" value="@user.Email" class="form-control" readonly />
+            </div>
+
+            <div class="col-lg-6 col-md-8 col-sm-8 mt-1">
+                <label for="phone">Phone</label>
+                <input type="text" name="phone" value="@user.Phone" class="form-control" required />
+            </div>
+
+            <div class="col-lg-6 col-md-8 col-sm-8 mt-1">
+                <label for="password">Password</label>
+                <input type="text" name="password" value="@user.Password" class="form-control" required />
+            </div>
+
+            <div class="col-lg-10 col-md-10 col-sm-10 mt-1">
+                <label for="phone">Address</label>
+                <textarea name="address" class="form-control" rows="5">@user.Address</textarea>
+            </div>
+
+            <div class="row mt-2">
+                <button class="btn btn-primary col-4" type="submit">UPDATE</button>
+            </div>
+        </form>
+
+
+    </div>
+</div>
+

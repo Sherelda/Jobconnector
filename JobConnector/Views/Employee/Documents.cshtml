@@ -1,0 +1,80 @@
+﻿@{
+    ViewBag.Title = "Documents";
+    var id = (JobConnector.Models.Doc)ViewData["id"];
+    var metric = (JobConnector.Models.Doc)ViewData["metric"];
+    var degree = (JobConnector.Models.Doc)ViewData["degree"];
+}
+
+<div class="container">
+    <div class="row">
+        <p class="px-4 text-danger">@ViewBag.error</p>
+        <p class="px-4 text-danger">@ViewData["error_message"]</p>
+        <p class="px-4 text-info">@ViewBag.message</p>
+    </div>
+
+    <form class="row my-4" method="post" enctype="multipart/form-data">
+        <h2 class="w-100 text-capitalize text-center">Upload Documents</h2>
+        <div class="row">
+            <div class="col-4">
+                <label for="id">ID</label>
+                @if (id == null)
+                {
+                    <input class="form-control"
+                           name="id" type="file"
+                           id="id" accept="application/pdf" />
+                }
+                else
+                {
+                    <a class="btn btn-info form-control" href="../uploads/@id.Link" target="_blank">View ID Document</a>
+                }
+
+            </div>
+
+            <div class="col-4">
+                <label for="metric">Metric</label>
+
+                @if (metric == null)
+                {
+                    <input class="form-control"
+                           name="metric" type="file"
+                           id="metric" accept="application/pdf" />
+                }
+                else
+                {
+                    <a class="btn btn-info form-control" href="../uploads/@metric.Link" target="_blank">View Metric Document</a>
+                }
+            </div>
+
+            <div class="col-4">
+                <label for="degree">Degree</label>
+
+                @if (degree == null)
+                {
+                    <input class="form-control"
+                           name="degree" type="file"
+                           id="degree" accept="application/pdf" />
+                }
+                else
+                {
+                    <a class="btn btn-info form-control" href="../uploads/@degree.Link" target="_blank">View Degree Document</a>
+                }
+            </div>
+        </div>
+
+        <div class="row d-none my-3 d-flex justify-content-around">
+            <div class="col-4">
+                <label for="others">Other Documents</label>
+                <input class="form-control"
+                       name="others" type="file"
+                       id="others" accept="application/pdf" multiple />
+            </div>
+
+
+        </div>
+        <div class="col-4">
+            <button type="submit" class="btn btn-primary">UPLOAD</button>
+        </div>
+    </form>
+
+</div>
+

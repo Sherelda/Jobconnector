@@ -1,0 +1,132 @@
+﻿@{
+    var user = (JobConnector.Models.User)Session["user"];
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        .cv_link {
+            color: brown
+        }
+
+        .cv_link:hover {
+            cursor: pointer;
+            transform: scale(1.01);
+        }
+    </style>
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <div class="row d-flex align-items-center justify-content-center w-100 py-2">
+        <img src="../favicon.ico" alt="logo" style="width: 8em;" />
+        <p class="text-center mb-0">Job Connector (@if (@user != null) {@user.Email})</p>
+    </div>
+
+    <div class="d-flex align-items-center justify-content-center">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-info w-75">
+            <div class="container">
+
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Toggle navigation" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+
+                        @if (user == null)
+                        {
+                            <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                            <li>@Html.ActionLink("About", "About", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                            <li>@Html.ActionLink("Contact", "Contact", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                            <li>@Html.ActionLink("Register", "Register", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                            <li>@Html.ActionLink("Login", "Login", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                        }
+                        else
+                        {
+                            <li>@Html.ActionLink("Logout", "Logout", "Home", new { area = "" }, new { @class = "nav-link text-warning" })</li>
+                            if (user.UserType == "admin")
+                            {
+                                <li>@Html.ActionLink("Dashboard", "Index", "Admin", new { area = "" }, new { @class = "nav-link" })</li>
+                                <li>@Html.ActionLink("Job List", "Jobs", "Admin", new { area = "" }, new { @class = "nav-link" })</li>
+                                <li>@Html.ActionLink("View Resumes", "Resumes", "Admin", new { area = "" }, new { @class = "nav-link" })</li>
+                                <li>@Html.ActionLink("Contact List", "Employees", "Admin", new { area = "" }, new { @class = "nav-link" })</li>
+                                <li>@Html.ActionLink("Partner List", "Partners", "Admin", new { area = "" }, new { @class = "nav-link" })</li>
+                                <li>@Html.ActionLink("Partner CVs", "CVs", "Admin", new { area = "" }, new { @class = "nav-link" })</li>
+                            }
+                            else if (user.UserType == "employee")
+                            {
+                                <li>@Html.ActionLink("Find A Job", "Find", "Employee", new { area = "" }, new { @class = "nav-link" })</li>
+                                <li>@Html.ActionLink("Profile", "MyProfile", "Employee", new { area = "" }, new { @class = "nav-link" })</li>
+                                <li>@Html.ActionLink("Resume", "Resume", "Employee", new { area = "" }, new { @class = "nav-link" })</li>
+                                <li>@Html.ActionLink("Documents", "Documents", "Employee", new { area = "" }, new { @class = "nav-link" })</li>
+                                <li>@Html.ActionLink("TnCs", "Terms", "Employee", new { area = "" }, new { @class = "nav-link" })</li>
+
+                            }
+                            else if (user.UserType == "employer")
+                            {
+                                <li>@Html.ActionLink("Home", "Index", "Employer", new { area = "" }, new { @class = "nav-link" })</li>
+                                <li>@Html.ActionLink("Add A Job", "AddJob", "Employer", new { area = "" }, new { @class = "nav-link" })</li>
+                                <li>@Html.ActionLink("Profile", "MyProfile", "Employer", new { area = "" }, new { @class = "nav-link" })</li>
+                                <li>@Html.ActionLink("My Jobs", "Jobs", "Employer", new { area = "" }, new { @class = "nav-link" })</li>
+
+                            }
+                            else if (user.UserType == "partner")
+                            {
+                                <li>@Html.ActionLink("Home", "Index", "Partner", new { area = "" }, new { @class = "nav-link" })</li>
+                                <li>@Html.ActionLink("Profile", "MyProfile", "Partner", new { area = "" }, new { @class = "nav-link" })</li>
+                                <li>@Html.ActionLink("Add CVs", "AddCvs", "Partner", new { area = "" }, new { @class = "nav-link" })</li>
+
+                            }
+
+                        }
+
+
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+    </div>
+
+    <div class="mt-1 p-3 bg-white">
+        @RenderBody()
+
+    </div>
+
+    <hr />
+    <footer>
+        <div class="row justify-content-between">
+            <div class="col-lg-4 col-md-6 col-sm-12 ">
+                <ul style="list-style: none;">
+                    <li>Contact Job Connector</li>
+                    <li>Phone: +27 56 654 6784</li>
+                    <li>Email: jobconnector@gmail.com</li>
+                    <li>Address: 12 Westbridge Street</li>
+                </ul>
+            </div>
+
+            <div class="col-lg-4 col-md-6 col-sm-12 ">
+                <ul style="list-style: none;">
+                    <li>Contact WeFeedSA</li>
+                    <li>Phone: +27 64 826 6450/+27 82 369 4246 </li>
+                    <li>Email: info@wefeessa.com</li>
+                    <li>Address: 61 Henwood Road, Windemeer, Durban, 4001</li>
+                </ul>
+            </div>
+        </div>
+        <div class="d-flex align-items-center justify-content-end px-5">
+            <p>Privacy Policy Terms and Conditions</p>
+        </div>
+    </footer>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

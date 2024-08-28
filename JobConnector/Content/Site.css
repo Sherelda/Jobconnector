@@ -1,0 +1,8 @@
+﻿.cv_link {
+    color: brown
+}
+
+.cv_link:hover {
+    cursor: pointer;
+    transform: scale(1.01);
+}

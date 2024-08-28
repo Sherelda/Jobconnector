@@ -1,0 +1,50 @@
+﻿
+@{
+    ViewBag.Title = "AddCVs";
+    var successes = (List<string>)ViewData["successes"];
+    var fails = (List<string>)ViewData["fails"];
+}
+
+<div class="container">
+    <form class="bg-gray p-3" method="post" enctype="multipart/form-data">
+        <div class="row">
+            @if (successes?.Count > 0)
+            {
+                <h3 class="text-success">CVs successfully uploaded</h3>
+            }
+
+            @if (fails?.Count > 0)
+            {
+                <div class="col-12">
+                    <h3 class="text-danger">These files failed to upload:</h3>
+                    <ul>
+                        @foreach (var s in fails)
+                        {
+                            <li class="text-warning">@s</li>
+                        }
+                    </ul>
+                </div>
+            }
+        </div>
+        <div class="row">
+            <div class="col-6 my-2 p-3">
+                <label>Select all CVs to upload</label>
+                <input 
+                       type="file" class="form-control" 
+                       name="files" multiple accept="application/pdf" />
+                <input type="submit" value="Upload" class="btn btn-primary m-2" />
+            </div>
+
+            <div class="col-12">
+                <p>@ViewBag.Message</p>
+                <p class="text-danger">@ViewData["error_message"]</p>
+            </div>
+
+
+        </div>
+    </form>
+
+    <script>
+    </script>
+</div>
+

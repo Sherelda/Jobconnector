@@ -1,0 +1,54 @@
+﻿@{
+    ViewBag.Title = "Contact";
+}
+<main aria-labelledby="title">
+    <div class="row d-flex flex-column align-items-center">
+        <div class="col-lg-5 col-md-8 col-sm-10">
+            <h1>Contact</h1>
+            <p>
+                We are dedicated to connecting job seekers with their dream careers and helping companies find the perfect candidates. 
+                Our platform offers a seamless experience, allowing users to easily apply for jobs, filter searches to match their specific preferences,
+                and stay updated on the latest opportunities. Employers can upload their job vacancies and reach a vast pool of potential employees by 
+                subscribing to our premium services. For any inquiries or assistance, please don't hesitate to contact us. We're here to support you 
+                every step of the way in your employment journey.
+            </p>
+        </div>
+
+        <form class="col-lg-6 col-md-10 col-sm-12" method="post">
+            <div class="row">
+                <div class="col-6">
+                    <label for="phone">Phone</label>
+                    <input type="text" name="phone" value="+27 56 654 6784" readonly class="form-control border-0" />
+                </div>
+
+                <div class="col-6">
+                    <label for="email">Email</label>
+                    <input type="text" name="email" value="jobconnnector@gmail.com" readonly class="form-control border-0" />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-6">
+                    <label for="fullname">Fullname</label>
+                    <input type="text" name="fullname" class="form-control" />
+                </div>
+
+                <div class="col-6">
+                    <label for="email2">Your Email</label>
+                    <input type="text" name="email2" class="form-control" />
+                </div>
+            </div>
+
+            <div class="row d-flex align-items-center justify-content-center">
+                <div class="col-12">
+                    <label for="message">Message</label>
+                    <textarea class="w-100 form-control"></textarea>
+                </div>
+            </div>
+
+            <div class="row d-flex align-items-center justify-content-end p-3 mt-2">
+                <button type="submit" class="btn btn-primary col-lg-2 col-md-3 col-sm-4">SEND</button>
+            </div>
+        </form>
+    </div>
+</main>

@@ -1,0 +1,162 @@
+﻿
+@{
+    ViewBag.Title = "Job";
+    var user = (JobConnector.Models.User)Session["user"];
+    var job = (JobConnector.Models.Job)ViewData["job"];
+    var applied = (List<int>)ViewData["applied"];
+}
+
+<div class="container bg-white p-3">
+    <div class="row">
+        <p class="text-info">@ViewBag.id</p>
+    </div>
+    @if (job == null)
+    {
+        if (ViewData["success_message"] != null)
+        {
+            <p class="text-capitalize text-success">
+                @ViewData["success_message"]
+            </p>
+        }
+        else if (ViewData["error_message"] != null)
+        {
+            <p class="text-capitalize text-danger">
+                @ViewData["success_message"]
+            </p>
+        }
+        else
+        {
+            <div class="row p-5 d-flex align-items-center justify-content-center fs-4">
+                <p class="text-capitalize text-warning">
+                    Job not found!!!
+                </p>
+            </div>
+        }
+
+    }
+    else
+    {
+        <div class="row justify-content-around">
+            <div class="col-lg-6 col-md-5 col-sm-10">
+                <div class="d-flex">
+                    <div class="col-lg-4 col-md-4 col-sm-5">
+                        <img src="@job.CompanyLogo"
+                             style="width: 8em; height: 8em; border-radius: 50%; border: 2px solid;" />
+                    </div>
+
+                    <div class="col-lg-8 col-md-8 col-sm-7">
+                        <h3>@job.Title</h3>
+                        <div class=" mt-2 d-flex align-items-baseline justify-content-between">
+                            <span>@job.CompanyName</span>
+                            <span>@job.CompanyAddress</span>
+                            <span>R @job.Salary/month</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="my-2">
+                    <h4>Job Description</h4>
+                    <p class="mb-2">
+                        @job.Description
+                    </p>
+
+                    <h4>Required Knowledge, Skills and Abilities</h4>
+                    <p class="my-2">
+                        @job.Specialization
+                    </p>
+
+                    <h3>Education + Experience</h3>
+                    <ul>
+                        @job.Experience
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-5 col-sm-8">
+                <div class="py-2 px-1 d-flex flex-column" style="border: 2px solid;">
+                    <h3 class="w-100 text-center">Job Overview</h3>
+
+                    <div class="d-flex justify-content-between my-1">
+                        <label class="col-6">Posted Date:</label>
+                        <span class="col-6 posted">@job.Added</span>
+                    </div>
+
+                    <div class="d-flex justify-content-between my-1">
+                        <label class="col-6">Location:</label>
+                        <span class="col-6">@job.CompanyAddress</span>
+                    </div>
+
+                    <div class="d-flex justify-content-between my-1">
+                        <label class="col-6">Vacancies:</label>
+                        <span class="col-6">@job.Positions</span>
+                    </div>
+
+                    <div class="d-flex justify-content-between my-1">
+                        <label class="col-6">Job Nature:</label>
+                        <span class="col-6">@job.JobType</span>
+                    </div>
+
+                    <div class="d-flex justify-content-between my-1">
+                        <label class="col-6">Salary:</label>
+                        <span class="col-6">R @job.Salary/month</span>
+                    </div>
+
+                    <div class="d-flex justify-content-between my-1">
+                        <label class="col-6">Posted Date:</label>
+                        <span class="col-6">23 May 2024</span>
+                    </div>
+
+                    <div class="d-flex justify-content-between my-1">
+                        <label class="col-6">Application Close Date:</label>
+                        <span class="col-6" id="closes">31 Jul 2024</span>
+                    </div>
+
+                    <div class="d-flex align-items-center justify-content-center">
+                        <form method="post" class="w-100 d-flex align-items-center justify-content-center">
+                            <input type="hidden" value="@job.Id" name="id" />
+                            @if(applied != null && applied.Contains(job.Id)) {
+                            <button class="btn btn-warning col-4" type="button" disabled>
+                                Already Applied
+                            </button>
+                            } else {
+                            <button class="btn btn-primary col-4" type="submit">
+                                Apply
+                            </button>
+                            }
+
+                        </form>
+
+                    </div>
+                </div>
+
+                <div class="my-2">
+                    <h3>Company Information</h3>
+
+                    <div class="d-flex justify-content-between my-1">
+                        <label class="col-4">Address:</label>
+                        <span class="col-8">@job.CompanyAddress</span>
+                    </div>
+
+                    <div class="d-flex justify-content-between my-1">
+                        <label class="col-4">Company:</label>
+                        <span class="col-8">@job.CompanyName</span>
+                    </div>
+
+                    <div class="d-flex justify-content-between my-1">
+                        <label class="col-4">Website:</label>
+                        <span class="col-8">
+                            <a href="@job.CompanyWebsite">@job.CompanyWebsite</a>
+                        </span>
+                    </div>
+
+                    <div class="d-flex justify-content-between my-1">
+                        <label class="col-4">Email:</label>
+                        <span class="col-8">@job.CompanyEmail</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+</div>
+

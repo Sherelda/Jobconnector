@@ -1,0 +1,91 @@
+﻿
+@{
+    ViewBag.Title = "My Profile";
+    var cvs = (List<JobConnector.Models.CV>)ViewData["cvs"];
+    var records = (List<JobConnector.Controllers.Record>)ViewData["records"];
+}
+<div class="container p-4 bg-white">
+
+    <div class="row">
+        <p class="text-success">@ViewData["success_message"]</p>
+        <p class="text-warning">@ViewData["warn_message"]</p>
+        <p class="text-danger">@ViewData["error_message"]</p>
+    </div>
+    @if (records != null)
+    {
+        foreach (var rec in records)
+        {
+            var res = rec.cv;
+            var u = rec.u;
+            <div class="col-12 ">
+                <hr style="width: 100%;border: 2px solid black;" />
+
+                <div class="row mt-1 d-flex justify-content-around">
+                    <div class="col-4">
+                        <label>Name</label>
+                        <span class="form-control">@u.Name</span>
+                    </div>
+
+                    <div class="col-4">
+                        <label>Email</label>
+                        <span class="form-control">@u.Email</span>
+                    </div>
+                </div>
+                <div class="row mt-1">
+                    <div class="col-4">
+                        <label>University/College Name</label>
+                        <span name="college_name" class="form-control">@res.college_name</span>
+                    </div>
+
+                    <div class="col-4">
+                        <label>Degree</label>
+                        <span class="form-control">@res.college_degree</span>
+                    </div>
+
+                    <div class="col-4">
+                        <label>Period</label>
+                        <span class="form-control">@res.college_period</span>
+                    </div>
+                </div>
+
+                <div class="row mt-1">
+                    <div class="col-4">
+                        <label>High School Name</label>
+                        <span class="form-control">@res.high_school_name</span>
+                    </div>
+
+                    <div class="col-4">
+                        <label>Number of Subjects</label>
+                        <span class="form-control">@res.high_school_subjects</span>
+                    </div>
+
+                    <div class="col-4">
+                        <label>Graduation Year</label>
+                        <span class="form-control">@res.high_school_graduation</span>
+                    </div>
+                </div>
+
+                <div class="row mt-1">
+                    <div class="col-4">
+                        <label>Company</label>
+                        <span class="form-control">@res.company_name</span>
+                    </div>
+
+                    <div class="col-4">
+                        <label>Position</label>
+                        <span class="form-control">@res.position</span>
+                    </div>
+
+                    <div class="col-4">
+                        <label>Period</label>
+                        <span class="form-control">@res.company_period</span>
+                    </div>
+                </div>
+
+            </div>
+
+        }
+
+    }
+
+</div>
